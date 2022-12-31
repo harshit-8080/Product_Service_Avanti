@@ -1,24 +1,34 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const serverConfig = require("./configs/server.config");
+const dbConnection = require("./configs/db.config");
+const ProductRouter = require("./routes/product.routes");
 
 
 const app = express();
 
-
-app.use(cors())
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+const startServer = async() => {
 
 
-
-// test api
-app.get("/",(req,res)=>{
-    res.json({
-        "response":"For Product"
+    // middlewares
+    app.use(cors())
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({extended:true}));
+    app.use(ProductRouter);
+    
+    // test api
+    app.get("/",(req,res)=>{
+        res.json({"response":"For Product"})
     })
-})
 
-app.listen(7002,()=>{
-    console.log("server started at 3000");
-})
+    app.listen(serverConfig.PORT,async () => {
+
+        console.clear();
+        console.log(`Customer Service started at ${serverConfig.PORT}`);
+        await dbConnection();
+        
+    })
+}
+
+startServer();
