@@ -16,7 +16,6 @@ const startServer = async() => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended:true}));
     app.use(ProductRouter);
-    
     // test api
     app.get("/",(req,res)=>{
         res.json({"response":"For Product"})
