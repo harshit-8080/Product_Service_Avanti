@@ -24,7 +24,7 @@ const startServer = async() => {
     app.listen(serverConfig.PORT,async () => {
 
         console.clear();
-        console.log(`Customer Service started at ${serverConfig.PORT}`);
+        console.log(`Product Service started at ${serverConfig.PORT}`);
         await dbConnection();
         
     })
